@@ -10,11 +10,11 @@ for (let i = 1; i <= 9; i++) {
         } else {
             lost.textContent++;
         }
-        if (dead.textContent == 5 && lost.textContent < 2) {
+        if (dead.textContent == 10 && lost.textContent < 5) {
             alert("Вы победили в игре!");
             dead.textContent = 0;
             lost.textContent = 0;
-        } else if (lost.textContent == 2) {
+        } else if (lost.textContent == 5) {
             alert("Вы проиграли!");
             dead.textContent = 0;
             lost.textContent = 0;
