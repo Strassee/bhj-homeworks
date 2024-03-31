@@ -13,7 +13,6 @@ class Game {
 
   reset() {
     this.setNewWord();
-    //this.timer();
     this.winsElement.textContent = 0;
     this.lossElement.textContent = 0;
   }
@@ -81,7 +80,6 @@ class Game {
       } else {
         this.fail();
       }
-
     }, 1000);
   }
 
