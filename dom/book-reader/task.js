@@ -9,7 +9,10 @@ aFont.forEach((el) => {
         event.preventDefault();
         remcl(aFont, el.classList[0]);
         el.classList.add(`${el.classList[0]}_active`);
-        el.dataset.size ? book.classList.add(`book_fs-${el.dataset.size}`) : book.className = 'book';
+        book.classList.remove("book_fs-small", "book_fs-big");
+        if (el.dataset.size) {
+            book.classList.add(`book_fs-${el.dataset.size}`);
+        }
     });
 });
 
