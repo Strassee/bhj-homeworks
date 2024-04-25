@@ -1,7 +1,7 @@
-const a = Array.from(document.getElementsByClassName('has-tooltip'));
+const tagA = Array.from(document.getElementsByClassName('has-tooltip'));
 
 
-a.forEach((el) => {
+tagA.forEach((el) => {
     const div = document.createElement('div');
     div.classList.add('tooltip');
     div.textContent = el.getAttribute('title');

@@ -2,41 +2,36 @@ const task = document.getElementById('task__input');
 const taskList = document.getElementById('tasks__list');
 const form = document.getElementById('tasks__form');
 
-let countTask = localStorage.getItem('count'); 
-countTask = countTask ? countTask : 0;
-let tasks = {};
+let tasks;
 
-for (let i = 0; i < localStorage.length; i++) {
-    let myKey = localStorage.key(i);
-    if(myKey.slice(0, 4) === 'task') {
-        tasks[myKey] = localStorage.getItem(myKey);
+if (localStorage.getItem('tasks')) {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+    for (let task in tasks) {
+        restoreTasks(tasks[task]);
     }
-}
-
-for (let key in tasks) {
-    restoreTasks(key, tasks[key]);
+} else {
+    tasks = [];
 }
 
 form.addEventListener('submit', (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     if (task.value) {
-        countTask++;
-        tn = `task${countTask}`;
-        localStorage.setItem(tn, task.value);
-        localStorage.setItem('count', countTask);
-        restoreTasks(tn, task.value);
+        tasks.push(task.value);
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+        restoreTasks(task.value);
     }
 });
 
-function restoreTasks(k, t) {
+function restoreTasks(task) {
     const div = document.createElement('div');
     div.classList.add('task');
-    div.innerHTML = `<div class="task__title">${t}</div><a href="#" class="task__remove">&times;</a>`;
+    div.innerHTML = `<div class="task__title">${task}</div><a href="#" class="task__remove">&times;</a>`;
     taskList.appendChild(div);
     const a = div.querySelector('.task__remove');
     a.addEventListener('click', (e) => {
         div.remove();
-        localStorage.removeItem(k);
+        tasks.splice(tasks.indexOf(task), 1);
+        tasks.length != 0 ? localStorage.setItem('tasks', JSON.stringify(tasks)) : localStorage.removeItem('tasks');
     });
     form.reset();
 }
